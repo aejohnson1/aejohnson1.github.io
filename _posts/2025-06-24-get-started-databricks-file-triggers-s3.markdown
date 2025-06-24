@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default 
 title:  "Get Started with Databricks File Arrival Triggers in S3"
 date:   2025-06-24 17:59:20 +0100
 categories: databricks
