@@ -2,7 +2,7 @@
 layout: post 
 title:  "Get Started with Databricks File Arrival Triggers in S3"
 date:   2025-06-24 17:59:20 +0100
-categories: blog
+categories: Databricks
 ---
 # Databricks File Arrival Triggers with AWS S3
 
@@ -22,7 +22,7 @@ The first thing we need to do is to create a bucket in S3. This will be the [ext
 
 I will be using a bucket called `databricksfiletriggerdemo`:
 
-![S3 Bucket Screenshot](/assets/images/01S3Bucket.png)
+![S3 Bucket Screenshot](/images/filearrivaltriggers/01S3Bucket.png)
 
 ## Configure permissions
 
@@ -42,7 +42,7 @@ The key tasks for configuring permissions for our use case are:
 
 Once the above steps have been completed, you should have a successful test connection. I created a credential called `aimee-aws-s3`.
 
-![Test connection window from Databricks](/assets/images/02testcredential.png)
+![Test connection window from Databricks](/images/filearrivaltriggers/02testcredential.png)
 
 ## Create an external location
 
@@ -62,9 +62,9 @@ You will need to fill out the following options:
 
 Example of my external location and a successful test, you can see I've used the credential from the previous step and that I am pointing to the S3 bucket from my AWS account. Databricks will automatically set the usage to be 'read-only', this will take precedence over any 'write' permissions set via the AWS policy.
 
-![External location configuration](/assets/images/03externallocation.png)
+![External location configuration](/images/filearrivaltriggers/03externallocation.png)
 
-![External location test](/assets/images/04externallocationtest.png)
+![External location test](/images/filearrivaltriggers/04externallocationtest.png)
 
 ## Build a job and test
 
@@ -83,31 +83,31 @@ We will need a job that runs the notebook when it is triggered. In your Databric
 
 The job is very basic and contains a single task. When it is triggered it will go to the path of my update log notebook and run it:
 
-![Job configuration](/assets/images/06job.png)
+![Job configuration](/images/filearrivaltriggers/06job.png)
 
 The final step is to create a file arrival trigger which can be found on the right pane under 'Schedules & Triggers'.
 
 Select a trigger type of 'File arrival' and then use the S3 bucket path as part of the external location. The trigger needs to be 'Active' otherwise this will not work.
 
-![File trigger configuration](/assets/images/07filetrigger.png)
+![File trigger configuration](/images/filearrivaltriggers/07filetrigger.png)
 
 You can see from the YAML for the job the file trigger can be seen and shows the S3 bucket we configured. We are running a notebook task which points to the update log notebook and will run when the job is triggered.
 
-![Job YAML configuration](/assets/images/05jobyaml.png)
+![Job YAML configuration](/images/filearrivaltriggers/05jobyaml.png)
 
 ## Putting it all together
 
 To test that the trigger works, upload a file to the S3 bucket. File arrival triggers will check for a new file every minute. You will see the following whilst you are waiting for it to evaluate for the first time.
 
-![No file triggered status](/assets/images/08nofiletriggered.png)
+![No file triggered status](images/filearrivaltriggers/08nofiletriggered.png)
 
 When a file has been discovered, the task should begin to run.
 
-![Successful run](/assets/images/09successfulrun.png)
+![Successful run](/images/filearrivaltriggers/09successfulrun.png)
 
 Once the task is successful, go to the log table we created in the previous step and see if the logs have been updated. As you can see below, I have a new entry which means that the end to end process has worked.
 
-![Success table](/assets/images/10successtable.png)
+![Success table](/images/filearrivaltriggers/10successtable.png)
 
 Finally, a note on cost.
 

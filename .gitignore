@@ -1,7 +1,17 @@
-_site
-.sass-cache
-.jekyll-cache
+# jekyll related files and folders
+_site/
+.sass-cache/
+.jekyll-cache/
 .jekyll-metadata
-vendor
 
+# vscode related folders
+.vscode/
+
+#Ruby
 Gemfile.lock
+.bundle/
+vendor/
+
+# TEMP
+robots.txt
+CNAME
